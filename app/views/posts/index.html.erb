@@ -12,7 +12,7 @@
             <p class="text-justify"><%= markdown(post.body.first(250)).to_s%> </p>
 
             <% if signed_in? && post.user == current_user %>
-            <div class="actions">
+            <div class="article-tools">
               <%= link_to "<span class='glyphicon glyphicon-pencil'>Editar </span>".html_safe, edit_post_path(post) %>
               <%= link_to "<span class='glyphicon glyphicon-trash'>Eliminar</span>".html_safe, post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este post?" } %>
             </div>
