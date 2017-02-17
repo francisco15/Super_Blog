@@ -6,4 +6,57 @@ class PostsController < ApplicationController
     @posts = Post.all.order(created_at: :desc)
   end
 
+  def show
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def edit
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.user = current_user
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to posts_path, notice: 'Post creado correctamente.' }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_to posts_path, notice: 'Post actualizado correctamente.' }
+        format.json { render :show, status: :ok, location: @post }
+      else
+        format.html { render :edit }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+
+    redirect_to posts_path, notice: "El producto fue eliminado con éxito"
+  end
+
+  private
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+
 end
