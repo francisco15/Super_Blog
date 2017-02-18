@@ -6,7 +6,7 @@
         <div class="product clearfix">
           <div class="">
             <h1> <%= link_to post.title , post_path(post) %></h1>
-            <p class="text-muted">Publicado por <%= post.user.email %> hace <%= time_ago_in_words (post.created_at) %>
+            <p class="text-muted">Publicado por <%= post.user.email %> <%= time_ago_in_words (post.created_at) %>
             </p>
             <p class="text-justify"><%= markdown(post.body.first(250)).to_s%> </p>
 
